@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // js 只有一个事件循环, 但是可以有多个任务对列, promise, await , yield ,在microtasks 微任务对列,
+        // click 等事件, 在事件对列 
+        // setTimeout 在 macrotasks 宏任务对列 
+        //  执行顺序是  微任务 > 事件对列 > 宏任务
+
+        // ajax api 回调由于无法精确测试优先级, 暂不考虑
+        // 测试方法,  打开浏览器 , 在5秒之前点击两下鼠标, 在五秒之后点击两下鼠标, 输出结果如下
+        // 0
+        // 1
+        // 2
+        // 3
+        // 4
+        // click begin
+        // finished waiting
+        // script start
+        // async1 start
+        // promise1
+        // script end
+        // promise2
+        // click *2
+        // timer a
+        // timer b
+        // settimeout
+        // 哈哈
+        // async2
+        // 122
+        // async1 end
+        // click *2
+        setTimeout(function () {
+            for (var i = 0; i < 100000000; i++) { }
+            console.log('timer a');
+        }, 0)
+
+        for (var j = 0; j < 5; j++) {
+            console.log(j);
+        }
+
+        setTimeout(function () {
+            console.log('timer b');
+        }, 0)
+
+        function waitFiveSeconds() {
+            var now = (new Date()).getTime();
+            while (((new Date()).getTime() - now) < 5000) { }
+            console.log('finished waiting');
+        }
+
+        document.addEventListener('click', function () {
+            console.log('click');
+        })
+
+        console.log('click begin');
+        waitFiveSeconds();
+        async function async1() {
+            console.log("async1 start");
+            await new Promise(function (resolve, reject) {
+                setTimeout(() => {
+                    console.log("哈哈")
+                    resolve()
+                }, 1000)
+            });  // 关键点1
+            await async2();
+            console.log(122)
+            console.log("async1 end");
+        }
+        async function async2() {
+            console.log('async2');
+        }
+        console.log("script start");
+        setTimeout(function () {
+            // 关键点2
+            console.log("settimeout");
+        }, 0);
+        async1();
+        new Promise(function (resolve) {
+            console.log("promise1");
+            // 关键点3
+            resolve();
+        }).then(function () {
+            console.log("promise2");
+        });
+        console.log('script end');
+    </script>
+</body>
+
+</html>
