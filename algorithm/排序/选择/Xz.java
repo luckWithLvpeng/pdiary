@@ -1,3 +1,5 @@
+package 选择;
+
 import java.util.Arrays;
 
 /**
@@ -7,7 +9,7 @@ import java.util.Arrays;
  * @author 吕蓬
  * @version 1.0
  */
-public class Test {
+public class Xz {
     public static void sort(int[] arr) {
         for (int i = 0; i < arr.length -1; i++) {
             int minIndex = i;
