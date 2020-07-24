@@ -1,4 +1,4 @@
-package 冒泡;
+package 排序.冒泡;
 
 import org.jetbrains.annotations.NotNull;
 
