@@ -1,6 +1,5 @@
 package 排序.冒泡;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
@@ -12,7 +11,7 @@ import java.util.Arrays;
  * @version 1.0
  */
 public class Mp {
-    public static void sort(int @NotNull [] arr) {
+    public static void sort(int[] arr) {
         for (int i = 0; i < arr.length -1; i++) {
             int minIndex = i;
             for (int j = i + 1; j < arr.length; j++) {
@@ -23,7 +22,7 @@ public class Mp {
             }
         }
     }
-    public static void swap(int @NotNull [] arr, int i, int j) {
+    public static void swap(int[] arr, int i, int j) {
         int tmp = arr[i];
         arr[i] = arr[j];
         arr[j] = tmp;
