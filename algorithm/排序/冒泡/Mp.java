@@ -13,12 +13,12 @@ import java.util.Arrays;
 public class Mp {
     public static void sort(int[] arr) {
         for (int i = 0; i < arr.length -1; i++) {
-            int minIndex = i;
+            int min = i;
             for (int j = i + 1; j < arr.length; j++) {
-                minIndex = arr[j] < arr[minIndex] ? j : minIndex;
+                min = arr[j] < arr[min] ? j : min;
             }
-            if (minIndex != i) {
-                swap(arr,i, minIndex);
+            if (min != i) {
+                swap(arr,i, min);
             }
         }
     }
