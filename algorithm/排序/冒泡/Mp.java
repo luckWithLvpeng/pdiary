@@ -12,16 +12,15 @@ import java.util.Arrays;
  */
 public class Mp {
     public static void sort(int[] arr) {
-        for (int i = 0; i < arr.length -1; i++) {
-            int min = i;
-            for (int j = i + 1; j < arr.length; j++) {
-                min = arr[j] < arr[min] ? j : min;
-            }
-            if (min != i) {
-                swap(arr,i, min);
+        for (int i = arr.length; i > 0; i--) {
+            for (int j = 0; j < i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    swap(arr, j+1, j);
+                }
             }
         }
     }
+
     public static void swap(int[] arr, int i, int j) {
         int tmp = arr[i];
         arr[i] = arr[j];
@@ -29,7 +28,7 @@ public class Mp {
     }
 
     public static void main(String[] args) {
-        int[] arr = {4,3,2,5,8,1,9};
+        int[] arr = {4, 3, 2, 5, 8, 1, 9};
         sort(arr);
         System.out.println(Arrays.toString(arr));
     }
