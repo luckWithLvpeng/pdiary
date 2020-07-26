@@ -25,7 +25,9 @@ function allocBonus(arr) {
     return bonus * 100
 }
 
-console.log(allocBonus([9, 3, 4, 1, 3, 4, 5, 3]))
+console.log(allocBonus([9, 3, 4, 1, 3, 4, 5, 3]))//200 100 200 100 200 300 400 100
 console.log(allocBonus([9, 6, 3])) // 300 200 100
 console.log(allocBonus([1, 4, 5, 9, 3, 2])) // 100 200 300 400 200 100
-
+// 1600
+// 600
+// 1300
