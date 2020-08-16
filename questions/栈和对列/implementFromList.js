@@ -45,20 +45,6 @@ class List {
         }
     }
     /**
-     * 尾部插入
-     * @param value
-     */
-    tailPush(value){
-        let node = this.node(value)
-        if (this.tail === null) {
-            this.head = this.tail = node
-        } else {
-            node.last = this.tail
-            this.tail.next = node
-            this.tail = node
-        }
-    }
-    /**
      * 头部弹出
      * @param value
      */
@@ -71,7 +57,7 @@ class List {
             this.head.last = null
             current.next = null
         }
-        return current
+        return current.value
     }
     /**
      * 尾部弹出
@@ -86,7 +72,7 @@ class List {
             this.tail.next = null
             current.last = null
         }
-        return current
+        return current.value
     }
 
     /**
@@ -121,6 +107,9 @@ class Stack {
     pop() {
         return this.list.tailPop()
     }
+    isEmpty() {
+        return this.list.isEmpty()
+    }
 }
 
 /**
@@ -138,6 +127,7 @@ class Queue {
      */
     push(value){
         this.list.headPush(value)
+        this.size++
     }
 
     /**
@@ -145,6 +135,10 @@ class Queue {
      */
     pop() {
         return this.list.tailPop()
+    }
+
+    isEmpty() {
+        return this.list.isEmpty()
     }
 }
 
@@ -159,8 +153,92 @@ class Queue {
 //     console.log(stack.pop())
 // })
 
-let queue = new Queue()
-let testArr = [...new Array(100).keys()]
+// let queue = new Queue()
+// let testArr = [...new Array(100).keys()]
+// testArr.forEach(v => {
+//     console.log(v)
+//     queue.push(v)
+// })
+// console.log("-------------------")
+// testArr.forEach(v => {
+//     console.log(queue.pop())
+// })
+
+
+/**
+ * 题1
+ * 内部用只用对列,实现栈的功能
+ *
+ * 思路: 内部用两个对列, 交替存储,弹出
+ */
+class StackImplementByQueue {
+    constructor(props) {
+        this.pushQueue = new Queue()
+        this.popQueue = new Queue()
+    }
+
+    push(value) {
+        this.pushQueue.push((value))
+    }
+
+    pop() {
+        if (this.pushQueue.isEmpty())  throw new Error("Underflow")
+        let tmp = this.pushQueue.pop()
+        while (!this.pushQueue.isEmpty()) {
+            this.popQueue.push(tmp)
+            tmp = this.pushQueue.pop()
+        }
+        let tmpQueue = this.pushQueue
+        this.pushQueue = this.popQueue
+        this.popQueue = tmpQueue
+        return  tmp
+    }
+}
+
+// let stack = new StackImplementByQueue()
+// let testArr = [...new Array(10).keys()]
+// testArr.forEach(v => {
+//     console.log(v)
+//     stack.push(v)
+// })
+// console.log("-------------------")
+// testArr.forEach(v => {
+//     console.log(stack.pop())
+// })
+
+/**
+ * 题2
+ * 内部只用栈 , 实现对列
+ * 思路, 准备俩栈, 一个pushStack , 一个popStack
+ * 每次  push, 直接push 进 pushStack
+ * 每次 pop , 如果popStack 不为空, 直接pop,  如果为空, 则把所有pushStack的值压入popStack, 然后pop
+ * 都为空, 则报错: 底部溢出 (Underflow)
+ */
+class QueueImplementByStack {
+    constructor() {
+        this.pushStack = new Stack()
+        this.popStack == new Stack()
+    }
+
+    push(value) {
+        this.pushStack.push(value)
+    }
+    pop(){
+        if (this.popStack.isEmpty()) {
+            while (!this.pushStack.isEmpty()) {
+                this.popStack.push(this.pushStack.pop())
+            }
+        }
+        if (this.popStack.isEmpty()) {
+            throw new Error("Underflow")
+        } else {
+            return this.popStack.pop()
+        }
+    }
+}
+
+let queue = new QueueImplementByStack()
+let testArr = [...new Array(10).keys()]
 testArr.forEach(v => {
     console.log(v)
     queue.push(v)

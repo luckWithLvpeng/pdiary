@@ -85,15 +85,15 @@ class Queue {
     }
 }
 
-let queue = new Queue(10)
-let testArray = [...new Array(10).keys()]
-testArray.forEach(v => {
-    console.log(v)
-    queue.push(v)
-    console.log(queue)
-})
-console.log("~~~~~~~~~~~~~");
-testArray.forEach(v => {
-    console.log(queue.pop())
-    console.log(queue)
-})
+// let queue = new Queue(10)
+// let testArray = [...new Array(10).keys()]
+// testArray.forEach(v => {
+//     console.log(v)
+//     queue.push(v)
+//     console.log(queue)
+// })
+// console.log("~~~~~~~~~~~~~");
+// testArray.forEach(v => {
+//     console.log(queue.pop())
+//     console.log(queue)
+// })
