@@ -1,7 +1,7 @@
 
 //假设我们现在要对一个函数log，打印出它的执行记录。
 // 不使用装饰器
-
+Promise.resolve()
 var log = (fn) => {
     return function () {
         console.info(`${fn.name} invoke with ${Array.from(arguments).join(",")}`)
@@ -32,5 +32,5 @@ class Math {
 }
 const math = new Math();
 
-math.add(1, 2);
+math.plus(1, 2);
 

@@ -1,4 +1,9 @@
 .idea
-
+node_modules
 out
 .DS_Store
+logs
+*.log
+launch.json
+.vscode
+dist
